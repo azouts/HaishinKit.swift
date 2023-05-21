@@ -19,15 +19,11 @@ final class MediaLink {
                 return
             }
             choreographer.isPaused = isPaused
-            nstry({
-                if self.isPaused {
-                    self.playerNode.pause()
-                } else {
-                    self.playerNode.play()
-                }
-            }, { exeption in
-                logger.warn(exeption)
-            })
+            if self.isPaused {
+                self.playerNode.pause()
+            } else {
+                self.playerNode.play()
+            }
         }
     }
     var hasVideo = false
@@ -79,15 +75,12 @@ final class MediaLink {
     }
 
     func enqueueAudio(_ buffer: AVAudioPCMBuffer) {
-        nstry({
-            self.scheduledAudioBuffers.mutate { $0 += 1 }
-            self.playerNode.scheduleBuffer(buffer, completionHandler: self.didAVAudioNodeCompletion)
-            if !self.hasVideo && !self.playerNode.isPlaying && 10 <= self.scheduledAudioBuffers.value {
-                self.playerNode.play()
-            }
-        }, { exeption in
-            logger.warn(exeption)
-        })
+        
+        self.scheduledAudioBuffers.mutate { $0 += 1 }
+        self.playerNode.scheduleBuffer(buffer, completionHandler: self.didAVAudioNodeCompletion)
+        if !self.hasVideo && !self.playerNode.isPlaying && 10 <= self.scheduledAudioBuffers.value {
+            self.playerNode.play()
+        }
     }
 
     private func duration(_ duraiton: Double) -> Double {

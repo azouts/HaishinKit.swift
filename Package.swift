@@ -1,12 +1,13 @@
-// swift-tools-version:5.5
+// swift-tools-version: 5.8
 // The swift-tools-version declares the minimum version of Swift required to build this package.
+
 import PackageDescription
 
 let package = Package(
     name: "HaishinKit",
     platforms: [
-        .iOS(.v11),
-        .tvOS(.v11),
+        .iOS(.v14),
+        .tvOS(.v14),
         .macOS(.v10_13),
         .macCatalyst(.v14)
     ],
@@ -14,7 +15,7 @@ let package = Package(
         .library(name: "HaishinKit", targets: ["HaishinKit"])
     ],
     dependencies: [
-        .package(url: "https://github.com/shogo4405/Logboard.git", from: "2.3.1")
+        .package(url: "https://github.com/azouts/Logboard.git", branch: "main")
     ],
     targets: [
         .target(name: "SwiftPMSupport"),
@@ -22,9 +23,6 @@ let package = Package(
                 dependencies: ["Logboard", "SwiftPMSupport"],
                 path: "Sources",
                 exclude: [
-                    "Platforms/iOS/Info.plist",
-                    "Platforms/macOS/Info.plist",
-                    "Platforms/tvOS/Info.plist"
                 ],
                 sources: [
                     "Codec",

@@ -4,7 +4,7 @@ import MetalKit
 /**
  * A view that displays a video content of a NetStream object which uses Metal api.
  */
-public class MTHKView: MTKView {
+class MTHKView: MTKView {
     public var isMirrored = false
     /// Specifies how the video is displayed within a player layer’s bounds.
     public var videoGravity: AVLayerVideoGravity = .resizeAspect
@@ -24,7 +24,7 @@ public class MTHKView: MTKView {
         return device?.makeCommandQueue()
     }()
 
-    private weak var currentStream: NetStream? {
+    weak var currentStream: NetStream? {
         didSet {
             oldValue?.mixer.videoIO.drawable = nil
             if let currentStream = currentStream {

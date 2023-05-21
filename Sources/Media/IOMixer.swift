@@ -64,15 +64,11 @@ public class IOMixer {
             guard let audioEngine else {
                 return
             }
-            nstry({
-                if let audioFormat = self.audioFormat {
-                    audioEngine.connect(self.mediaLink.playerNode, to: audioEngine.mainMixerNode, format: audioFormat)
-                } else {
-                    audioEngine.disconnectNodeInput(self.mediaLink.playerNode)
-                }
-            }, { exeption in
-                logger.warn(exeption)
-            })
+            if let audioFormat = self.audioFormat {
+                audioEngine.connect(self.mediaLink.playerNode, to: audioEngine.mainMixerNode, format: audioFormat)
+            } else {
+                audioEngine.disconnectNodeInput(self.mediaLink.playerNode)
+            }
         }
     }
 
